@@ -8,10 +8,10 @@ export default function SubmitFeedback() {
     <div className="page-container">
       <header className="bg-card border-b">
         <div className="content-container py-4">
-          <Link to="/">
+          <Link to="/admin">
             <Button variant="ghost" size="sm" className="gap-2">
               <ArrowLeft className="w-4 h-4" />
-              Back to Dashboard
+              Admin Dashboard
             </Button>
           </Link>
         </div>
@@ -23,6 +23,7 @@ export default function SubmitFeedback() {
             <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
               <MessageSquare className="w-7 h-7 text-primary" />
             </div>
+            <h1>Open Voice</h1>
             <h1 className="text-2xl font-bold text-foreground mb-2">
               Submit Anonymous Feedback
             </h1>
