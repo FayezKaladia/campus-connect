@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Open-Voice Design System - Professional Campus Feedback Portal */
+
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 220 25% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 25% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 25% 10%;
+
+    --primary: 220 65% 25%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 20% 94%;
+    --secondary-foreground: 220 25% 20%;
+
+    --muted: 210 15% 92%;
+    --muted-foreground: 215 15% 45%;
+
+    --accent: 210 40% 96%;
+    --accent-foreground: 220 25% 15%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214 20% 88%;
+    --input: 214 25% 90%;
+    --ring: 220 65% 35%;
+
+    --radius: 0.625rem;
+
+    /* Status Colors */
+    --status-unresolved: 4 90% 95%;
+    --status-unresolved-border: 4 80% 75%;
+    --status-unresolved-text: 4 75% 40%;
+    --status-unresolved-badge: 4 75% 55%;
+
+    --status-resolved: 158 65% 94%;
+    --status-resolved-border: 158 55% 70%;
+    --status-resolved-text: 158 50% 30%;
+    --status-resolved-badge: 158 55% 42%;
+
+    /* Sidebar colors */
+    --sidebar-background: 220 25% 12%;
+    --sidebar-foreground: 210 20% 90%;
+    --sidebar-primary: 210 40% 98%;
+    --sidebar-primary-foreground: 220 25% 12%;
+    --sidebar-accent: 220 20% 18%;
+    --sidebar-accent-foreground: 210 20% 90%;
+    --sidebar-border: 220 20% 20%;
+    --sidebar-ring: 220 65% 50%;
+  }
+
+  .dark {
+    --background: 220 25% 8%;
+    --foreground: 210 20% 95%;
+
+    --card: 220 25% 11%;
+    --card-foreground: 210 20% 95%;
+
+    --popover: 220 25% 11%;
+    --popover-foreground: 210 20% 95%;
+
+    --primary: 210 50% 60%;
+    --primary-foreground: 220 25% 8%;
+
+    --secondary: 220 20% 16%;
+    --secondary-foreground: 210 20% 90%;
+
+    --muted: 220 20% 18%;
+    --muted-foreground: 215 15% 60%;
+
+    --accent: 220 20% 16%;
+    --accent-foreground: 210 20% 95%;
+
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 20% 18%;
+    --input: 220 20% 18%;
+    --ring: 210 50% 60%;
+
+    --status-unresolved: 4 70% 15%;
+    --status-unresolved-border: 4 60% 30%;
+    --status-unresolved-text: 4 65% 70%;
+    --status-unresolved-badge: 4 65% 55%;
+
+    --status-resolved: 158 45% 12%;
+    --status-resolved-border: 158 40% 25%;
+    --status-resolved-text: 158 45% 65%;
+    --status-resolved-badge: 158 45% 45%;
+
+    --sidebar-background: 220 25% 6%;
+    --sidebar-foreground: 210 20% 90%;
+    --sidebar-primary: 210 50% 60%;
+    --sidebar-primary-foreground: 220 25% 6%;
+    --sidebar-accent: 220 20% 12%;
+    --sidebar-accent-foreground: 210 20% 90%;
+    --sidebar-border: 220 20% 15%;
+    --sidebar-ring: 210 50% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .issue-card {
+    @apply rounded-xl border p-5 transition-all duration-200 hover:shadow-md;
+  }
+
+  .issue-card-unresolved {
+    background-color: hsl(var(--status-unresolved));
+    border-color: hsl(var(--status-unresolved-border));
+  }
+
+  .issue-card-resolved {
+    background-color: hsl(var(--status-resolved));
+    border-color: hsl(var(--status-resolved-border));
+  }
+
+  .status-badge {
+    @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wide;
+  }
+
+  .status-badge-unresolved {
+    background-color: hsl(var(--status-unresolved-badge));
+    color: white;
+  }
+
+  .status-badge-resolved {
+    background-color: hsl(var(--status-resolved-badge));
+    color: white;
+  }
+
+  .section-header {
+    @apply flex items-center gap-2 text-lg font-semibold mb-4;
+  }
+
+  .page-container {
+    @apply min-h-screen bg-background;
+  }
+
+  .content-container {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8;
+  }
+}
