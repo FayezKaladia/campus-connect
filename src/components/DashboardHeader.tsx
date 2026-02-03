@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { MessageSquarePlus, LayoutDashboard } from 'lucide-react';
+import { MessageSquarePlus, LayoutDashboard, LogOut } from 'lucide-react';
 
 interface DashboardHeaderProps {
   unresolvedCount: number;
@@ -8,6 +8,13 @@ interface DashboardHeaderProps {
 }
 
 export function DashboardHeader({ unresolvedCount, resolvedCount }: DashboardHeaderProps) {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('adminAuth');
+    navigate('/');
+  };
+
   return (
     <header className="bg-card border-b sticky top-0 z-10">
       <div className="content-container py-4">
@@ -40,12 +47,22 @@ export function DashboardHeader({ unresolvedCount, resolvedCount }: DashboardHea
               </div>
             </div>
             
-            <Link to="/submit">
+            <Link to="/">
               <Button size="sm" className="gap-2">
                 <MessageSquarePlus className="w-4 h-4" />
                 Submit Feedback
               </Button>
             </Link>
+
+            <Button
+              size="sm"
+              variant="ghost"
+              className="gap-2 text-destructive hover:text-destructive hover:bg-destructive/10"
+              onClick={handleLogout}
+            >
+              <LogOut className="w-4 h-4" />
+              Logout
+            </Button>
           </div>
         </div>
       </div>

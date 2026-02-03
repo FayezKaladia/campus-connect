@@ -13,12 +13,9 @@ export const CATEGORIES = [
   'Academics',
   'Infrastructure',
   'Technology',
-  'Administration',
-  'Transport & Access',
-  'Library & Resources',
+  'Curriculum',
+  'Facilities',
   'Safety & Welfare',
-  'Student Life',
-  'Others',
 ] as const;
 
 export const DEPARTMENTS = [
@@ -27,14 +24,11 @@ export const DEPARTMENTS = [
   'Mechanical Engineering',
   'Civil Engineering',
   'Information Technology',
+  'CSE - AI & Machine Learning',
+  'CSE - Internet of Things',
+  'CSE - Cybersecurity',
+  'CSE - Cloud Computing',
   'Applied Sciences',
-  'Administration Office',
-  'Library',
-  'Hostel',
-  'Canteen',
-  'Sports Department',
-  'Placement Cell',
-  'Other',
 ] as const;
 
 export type Category = typeof CATEGORIES[number];

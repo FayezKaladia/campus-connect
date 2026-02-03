@@ -6,7 +6,8 @@ import { IssueFilters } from '@/components/IssueFilters';
 import { IssueSearch } from '@/components/IssueSearch';
 import { IssueDetailModal } from '@/components/IssueDetailModal';
 import { Issue } from '@/types/issue';
-import { AlertCircle, CheckCircle2, Loader2, Inbox } from 'lucide-react';
+import { AlertCircle, CheckCircle2, Loader2, Inbox, Building2, FileText } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 
 export default function Dashboard() {
   const { issues, loading, resolveIssue } = useIssues();
@@ -49,6 +50,9 @@ export default function Dashboard() {
 
   const totalUnresolved = issues.filter((i) => i.status === 'unresolved').length;
   const totalResolved = issues.filter((i) => i.status === 'resolved').length;
+  
+  // Get unique departments affected
+  const departmentsAffected = new Set(issues.map(issue => issue.department)).size;
 
   if (loading) {
     return (
@@ -68,7 +72,71 @@ export default function Dashboard() {
         resolvedCount={totalResolved}
       />
 
-      <main className="content-container">
+      <main className="content-container py-8">
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          {/* Total Issues */}
+          <Card className="bg-card">
+            <CardContent className="pt-6">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground mb-2">Total Issues</p>
+                  <p className="text-3xl font-bold text-foreground">{issues.length}</p>
+                </div>
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <FileText className="w-6 h-6 text-primary" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Unresolved Issues */}
+          <Card className="bg-card">
+            <CardContent className="pt-6">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground mb-2">Unresolved Issues</p>
+                  <p className="text-3xl font-bold text-foreground">{totalUnresolved}</p>
+                </div>
+                <div className="w-12 h-12 rounded-lg bg-status-unresolved-badge/10 flex items-center justify-center">
+                  <AlertCircle className="w-6 h-6 text-status-unresolved-badge" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Resolved Issues */}
+          <Card className="bg-card">
+            <CardContent className="pt-6">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground mb-2">Resolved Issues</p>
+                  <p className="text-3xl font-bold text-foreground">{totalResolved}</p>
+                </div>
+                <div className="w-12 h-12 rounded-lg bg-status-resolved-badge/10 flex items-center justify-center">
+                  <CheckCircle2 className="w-6 h-6 text-status-resolved-badge" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Departments Affected */}
+          <Card className="bg-card">
+            <CardContent className="pt-6">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground mb-2">Departments Affected</p>
+                  <p className="text-3xl font-bold text-foreground">{departmentsAffected}</p>
+                </div>
+                <div className="w-12 h-12 rounded-lg bg-purple-500/10 flex items-center justify-center">
+                  <Building2 className="w-6 h-6 text-purple-600" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Search and Filters */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           <IssueSearch searchQuery={searchQuery} onSearchChange={setSearchQuery} />
           <IssueFilters
@@ -107,18 +175,20 @@ export default function Dashboard() {
           <div className="space-y-8">
             {/* Unresolved Section */}
             <section>
-              <div className="section-header">
-                <div className="w-6 h-6 rounded-full bg-status-unresolved-badge flex items-center justify-center">
-                  <AlertCircle className="w-3.5 h-3.5 text-white" />
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-8 h-8 rounded-full bg-status-unresolved-badge flex items-center justify-center">
+                  <AlertCircle className="w-4 h-4 text-white" />
                 </div>
-                <span className="text-foreground">Unresolved Issues</span>
-                <span className="text-sm font-normal text-muted-foreground">
-                  ({unresolvedIssues.length})
-                </span>
+                <h2 className="text-lg font-bold text-foreground">
+                  Unresolved Issues
+                  <span className="text-sm font-normal text-muted-foreground ml-2">
+                    ({unresolvedIssues.length})
+                  </span>
+                </h2>
               </div>
 
               {unresolvedIssues.length === 0 ? (
-                <div className="rounded-lg border border-dashed p-8 text-center">
+                <div className="rounded-lg border border-dashed p-12 text-center">
                   <p className="text-muted-foreground">
                     No unresolved issues{categoryFilter !== 'all' ? ' in this category' : ''}
                   </p>
@@ -137,24 +207,20 @@ export default function Dashboard() {
             </section>
 
             {/* Resolved Section */}
-            <section>
-              <div className="section-header">
-                <div className="w-6 h-6 rounded-full bg-status-resolved-badge flex items-center justify-center">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-white" />
+            {resolvedIssues.length > 0 && (
+              <section>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-8 rounded-full bg-status-resolved-badge flex items-center justify-center">
+                    <CheckCircle2 className="w-4 h-4 text-white" />
+                  </div>
+                  <h2 className="text-lg font-bold text-foreground">
+                    Resolved Issues
+                    <span className="text-sm font-normal text-muted-foreground ml-2">
+                      ({resolvedIssues.length})
+                    </span>
+                  </h2>
                 </div>
-                <span className="text-foreground">Resolved Issues</span>
-                <span className="text-sm font-normal text-muted-foreground">
-                  ({resolvedIssues.length})
-                </span>
-              </div>
 
-              {resolvedIssues.length === 0 ? (
-                <div className="rounded-lg border border-dashed p-8 text-center">
-                  <p className="text-muted-foreground">
-                    No resolved issues{categoryFilter !== 'all' ? ' in this category' : ''}
-                  </p>
-                </div>
-              ) : (
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {resolvedIssues.map((issue) => (
                     <IssueCard
@@ -164,8 +230,8 @@ export default function Dashboard() {
                     />
                   ))}
                 </div>
-              )}
-            </section>
+              </section>
+            )}
           </div>
         )}
       </main>
