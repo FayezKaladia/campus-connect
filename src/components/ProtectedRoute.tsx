@@ -5,11 +5,6 @@ interface ProtectedRouteProps {
 }
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const isLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true';
-
-  if (!isLoggedIn) {
-    return <Navigate to="/admin-login" replace />;
-  }
-
+  // Always allow access to admin dashboard
   return <>{children}</>;
 }

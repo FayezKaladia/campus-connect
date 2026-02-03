@@ -1,5 +1,5 @@
-# TODO: Change Admin Authentication to Session-Based
+# TODO: Remove Admin Login and Enable Direct Access to Admin Dashboard
 
-- [x] Update AdminLogin to use sessionStorage instead of localStorage
-- [x] Update ProtectedRoute to check sessionStorage instead of localStorage
-- [x] Test session-based authentication
+- [ ] Remove AdminLogin import and /admin-login route from App.tsx
+- [ ] Modify ProtectedRoute.tsx to always allow access to admin dashboard
+- [ ] Delete AdminLogin.tsx file
